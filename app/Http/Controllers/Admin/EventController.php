@@ -147,9 +147,10 @@ class EventController extends Controller
     public function destroy(Event $event)
     {
         $event->images()->delete(); // optional: clean up
-        $event->delete();
         // Notify users about the event removal
         $this->notifyJoinedUsers(EventRemovedNotification::class, $event);
+        $event->delete();
+        
 
         return back()->with('success', 'Event deleted');
     }
